@@ -1,21 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { NativeRouter, Switch, Route } from 'react-router-native';
 
-export default function App() {
+import HomeScreen from './src/components/HomeScreen';
+import CameraScreen from './src/components/CameraScreen';
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NativeRouter>
+      <SafeAreaView>
+        <Switch>
+          <Route path="/" exact component={HomeScreen} />
+          <Route path="/camera" exact component={CameraScreen} />
+        </Switch>
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    </NativeRouter>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
