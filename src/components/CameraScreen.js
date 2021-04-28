@@ -7,7 +7,9 @@ import * as ImagePicker from 'expo-image-picker';
 const CameraScreen = (props) => {
     // String: contains image URL
     const [image, setImage] = useState('');
+    const [base64, setBase64] = useState('');
 
+    // Merge takeImage and selectImage later since they share similar codes
     const takeImage = async () => {
         // FIXME: requests unhandled after initial rejection
         if (Platform.OS !== 'web') {
@@ -18,17 +20,18 @@ const CameraScreen = (props) => {
             }
         }
 
+        // FIXME: Cannot move crop box on y-axis? overflow
         let result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [1, 1],
-            quality: 1,
+            quality: 0.5,   // 0 - 1
+            base64: true
         });
-
-        console.log(result);
 
         if (!result.cancelled) {
             setImage(result.uri);
+            setBase64(result.base64);
         }
     };
 
@@ -46,30 +49,39 @@ const CameraScreen = (props) => {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [1, 1],
-            quality: 1,
+            quality: 0.5,
+            base64: true
         });
-
-        console.log(result);
 
         if (!result.cancelled) {
             setImage(result.uri);
+            setBase64(result.base64);
         }
     };
 
-    const displayPreview = () => {
+    const renderPreview = () => {
         if (image === '')
             return <Text style={styles.ImagePreview}>Upload Image to Start</Text>
         else
             return <Image source={{ uri: image }} style={styles.ImagePreview} />
     }
 
+    const renderUseImageButton = () => {
+        if (image !== '')
+            return <Button title="Use this Image"
+                onPress={() => props.history.push('/result', { image: image, base64: base64 })}
+            />
+        return null;
+    }
+
     return (
         <View style={styles.CameraScreen}>
             <Text>Camera Screen</Text>
-            {displayPreview()}
+            {renderPreview()}
             <Button title="Choose Photo from Library" onPress={selectImage} />
             <Button title="Take Photo using Camera" onPress={takeImage} />
             <Button title="Back to Home Screen" onPress={() => props.history.push('/')} />
+            {renderUseImageButton()}
         </View>
     );
 }
@@ -80,7 +92,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'honeydew',
         width: '100%',
-        height: '80%'
+        height: '90%'
     },
     ImagePreview: {
         width: 250,
