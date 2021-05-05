@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import {
     Button, Text, View, StyleSheet, Image, ScrollView
 } from 'react-native';
+import * as Speech from 'expo-speech';
 
 import ocrRequest from '../api/ocr';
-
-const testResponse = '';
 
 const ResultScreen = (props) => {
     const [image, setImage] = useState(props.location.state.image);
@@ -33,6 +32,12 @@ const ResultScreen = (props) => {
             return <Image source={{ uri: image }} style={styles.ImagePreview} />
     }
 
+    const speakResponse = () => {
+        Speech.speak(response.replace(/ \\ r \\ n/g, '').replace(/\\r\\n/g, ''), {
+            rate: 0.75  // 1
+        });
+    };
+
     return (
         <View style={styles.ResultScreen}>
             {renderPreview()}
@@ -43,6 +48,8 @@ const ResultScreen = (props) => {
                 </Text>
             </ScrollView>
             <Button title="Back to Home Page" onPress={() => props.history.push('/')} />
+            <Button title="Press to hear response" onPress={speakResponse} />
+            <Button title="Press to Stop" onPress={Speech.stop} />
         </View>
     );
 }

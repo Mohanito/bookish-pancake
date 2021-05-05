@@ -30,7 +30,6 @@ const CameraScreen = (props) => {
         });
 
         if (!result.cancelled) {
-            console.log(result);
             setImage(result.uri);
             setBase64(result.base64);
         }
