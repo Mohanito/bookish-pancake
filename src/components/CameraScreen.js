@@ -25,11 +25,12 @@ const CameraScreen = (props) => {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [1, 1],
-            quality: 0.5,   // 0 - 1
+            quality: 0,   // 0 - 1
             base64: true
         });
 
         if (!result.cancelled) {
+            console.log(result);
             setImage(result.uri);
             setBase64(result.base64);
         }
@@ -49,7 +50,7 @@ const CameraScreen = (props) => {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [1, 1],
-            quality: 0.5,
+            quality: 0,
             base64: true
         });
 

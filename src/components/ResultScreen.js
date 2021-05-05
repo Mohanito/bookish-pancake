@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Button, Text, View, StyleSheet, Image
+    Button, Text, View, StyleSheet, Image, ScrollView
 } from 'react-native';
 
 import ocrRequest from '../api/ocr';
 
+const testResponse = '';
+
 const ResultScreen = (props) => {
     const [image, setImage] = useState(props.location.state.image);
     const [response, setResponse] = useState('');
-    const [base64, setBase64] = useState(props.location.state.base64);
+    // const [base64, setBase64] = useState(props.location.state.base64);
 
     useEffect(() => {
-        console.log(base64);
-        // setImage(props.location.state.image);
-        // call ocr api with image url, update state with response.
-        // TODO: check: "ParsedText" exists or ErrorMessage?
+        // At initial render: call ocr api with image url, update state with response.
         (async () => {
-            let apiResponse = await ocrRequest(image, base64);
+            let apiResponse = await ocrRequest(props.location.state.base64);
             console.log(apiResponse);
-            setResponse(JSON.stringify(apiResponse));
+            if (apiResponse.OCRExitCode == 1) {
+                setResponse(JSON.stringify(apiResponse.ParsedResults[0].ParsedText));
+            }
+            else {
+                setResponse(apiResponse.ErrorDetails);
+            }
         })();
     }, []);
 
@@ -33,8 +37,11 @@ const ResultScreen = (props) => {
         <View style={styles.ResultScreen}>
             {renderPreview()}
             <Text>Result Screen</Text>
-            <Text>{props.location.state.image}</Text>
-            <Text>API response: {response}</Text>
+            <ScrollView style={styles.ScrollView}>
+                <Text>
+                    {response.replace(/ \\ r \\ n/g, '\n').replace(/\\r\\n/g, '\n')}
+                </Text>
+            </ScrollView>
             <Button title="Back to Home Page" onPress={() => props.history.push('/')} />
         </View>
     );
@@ -51,6 +58,12 @@ const styles = StyleSheet.create({
     ImagePreview: {
         width: 250,
         height: 250
+    },
+    ScrollView: {
+        width: '100%',
+        height: '40%',
+        backgroundColor: 'pink',
+        marginHorizontal: 20
     }
 });
 
