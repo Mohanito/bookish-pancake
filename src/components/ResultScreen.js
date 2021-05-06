@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
     Button, Text, View, StyleSheet, Image, ScrollView
 } from 'react-native';
+import { Icon, Spinner } from '@ui-kitten/components';
 import * as Speech from 'expo-speech';
 
 import ocrRequest from '../api/ocr';
@@ -27,9 +28,18 @@ const ResultScreen = (props) => {
 
     const renderPreview = () => {
         if (image === '')
-            return <Text style={styles.ImagePreview}>Upload Image to Start</Text>
+            return <Icon name='image' fill='#000000' style={{ width: 35, height: 35 }} />
         else
             return <Image source={{ uri: image }} style={styles.ImagePreview} />
+    }
+
+    const renderResponse = () => {
+        if (response === '')
+            return <Spinner size='giant' />
+        else
+            return <Text>
+                {response.replace(/ \\ r \\ n/g, '\n').replace(/\\r\\n/g, '\n')}
+            </Text>
     }
 
     const speakResponse = () => {
@@ -40,12 +50,12 @@ const ResultScreen = (props) => {
 
     return (
         <View style={styles.ResultScreen}>
-            {renderPreview()}
+            <View style={styles.ImagePreview}>
+                {renderPreview()}
+            </View>
             <Text>Result Screen</Text>
             <ScrollView style={styles.ScrollView}>
-                <Text>
-                    {response.replace(/ \\ r \\ n/g, '\n').replace(/\\r\\n/g, '\n')}
-                </Text>
+                {renderResponse()}
             </ScrollView>
             <Button title="Back to Home Page" onPress={() => props.history.push('/')} />
             <Button title="Press to hear response" onPress={speakResponse} />

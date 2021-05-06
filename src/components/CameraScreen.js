@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {
-    Button, Text, View, StyleSheet, Platform, Image
+    View, StyleSheet, Platform, Image
 } from 'react-native';
+import { Button, Text, Icon } from '@ui-kitten/components';
 import * as ImagePicker from 'expo-image-picker';
 
 const CameraScreen = (props) => {
@@ -61,42 +62,54 @@ const CameraScreen = (props) => {
 
     const renderPreview = () => {
         if (image === '')
-            return <Text style={styles.ImagePreview}>Upload Image to Start</Text>
+            return <Icon name='image' fill='#000000' style={{ width: 35, height: 35 }}/>
         else
             return <Image source={{ uri: image }} style={styles.ImagePreview} />
     }
 
     const renderUseImageButton = () => {
         if (image !== '')
-            return <Button title="Use this Image"
-                onPress={() => props.history.push('/result', { image: image, base64: base64 })}
-            />
+            return <Button onPress={() => props.history.push('/result', { image: image, base64: base64 })}>
+                Use this Image
+            </Button>
         return null;
     }
 
     return (
         <View style={styles.CameraScreen}>
-            <Text>Camera Screen</Text>
-            {renderPreview()}
-            <Button title="Choose Photo from Library" onPress={selectImage} />
-            <Button title="Take Photo using Camera" onPress={takeImage} />
-            <Button title="Back to Home Screen" onPress={() => props.history.push('/')} />
+            <View style={styles.ImagePreview}>
+                {renderPreview()}
+            </View>
             {renderUseImageButton()}
+            <Button onPress={selectImage}>
+                Choose Photo from Library
+            </Button>
+            <Button onPress={takeImage}>
+                Take Photo using Camera
+            </Button>
+            <Button onPress={() => props.history.push('/')}>
+                Back to Home Screen
+            </Button>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     CameraScreen: {
-        justifyContent: 'center',
+        // justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'honeydew',
+        // backgroundColor: 'honeydew',
         width: '100%',
-        height: '90%'
+        height: '100%'
     },
     ImagePreview: {
-        width: 250,
-        height: 250
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 300,
+        height: 300,
+        borderColor: 'black',
+        borderWidth: 2,
+        borderRadius: 50
     }
 });
 
