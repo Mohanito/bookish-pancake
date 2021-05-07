@@ -12,6 +12,7 @@ import { NativeRouter, Switch, Route } from 'react-router-native';
 import HomeScreen from './src/components/HomeScreen';
 import CameraScreen from './src/components/CameraScreen';
 import ResultScreen from './src/components/ResultScreen';
+import Header from './src/components/Header';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
       <ApplicationProvider {...eva} theme={eva.light}>
         <NativeRouter>
           <SafeAreaView>
+            <Header />
             <Switch>
               <Route path="/" exact component={HomeScreen} />
               <Route path="/camera" exact component={CameraScreen} />

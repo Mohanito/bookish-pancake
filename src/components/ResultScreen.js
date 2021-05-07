@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Button, Text, View, StyleSheet, Image, ScrollView
+    View, StyleSheet, Image, ScrollView
 } from 'react-native';
-import { Icon, Spinner } from '@ui-kitten/components';
+import { Button, Text, Icon, Spinner } from '@ui-kitten/components';
 import * as Speech from 'expo-speech';
 
 import ocrRequest from '../api/ocr';
@@ -28,7 +28,7 @@ const ResultScreen = (props) => {
 
     const renderPreview = () => {
         if (image === '')
-            return <Icon name='image' fill='#000000' style={{ width: 35, height: 35 }} />
+            return <Icon name='image' fill='#a7bbc7' style={{ width: 35, height: 35 }} />
         else
             return <Image source={{ uri: image }} style={styles.ImagePreview} />
     }
@@ -37,14 +37,14 @@ const ResultScreen = (props) => {
         if (response === '')
             return <Spinner size='giant' />
         else
-            return <Text>
+            return <Text category="h2">
                 {response.replace(/ \\ r \\ n/g, '\n').replace(/\\r\\n/g, '\n')}
             </Text>
     }
 
     const speakResponse = () => {
         Speech.speak(response.replace(/ \\ r \\ n/g, '').replace(/\\r\\n/g, ''), {
-            rate: 0.75  // 1
+            rate: 0.8  // 1
         });
     };
 
@@ -53,34 +53,51 @@ const ResultScreen = (props) => {
             <View style={styles.ImagePreview}>
                 {renderPreview()}
             </View>
-            <Text>Result Screen</Text>
             <ScrollView style={styles.ScrollView}>
                 {renderResponse()}
             </ScrollView>
-            <Button title="Back to Home Page" onPress={() => props.history.push('/')} />
-            <Button title="Press to hear response" onPress={speakResponse} />
-            <Button title="Press to Stop" onPress={Speech.stop} />
+            <Button onPress={speakResponse} style={styles.Button}>
+                Press to hear response
+            </Button>
+            <Button onPress={Speech.stop} style={styles.Button}>
+                Press to Stop
+            </Button>
+            <Button onPress={() => props.history.push('/')} style={styles.Button}>
+                Back to Home Page
+            </Button>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     ResultScreen: {
-        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'honeydew',
         width: '100%',
         height: '90%'
     },
     ImagePreview: {
-        width: 250,
-        height: 250
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 200,
+        height: 200,
+        borderColor: '#a7bbc7',
+        borderWidth: 2,
+        borderRadius: 50,
+        margin: '5%'
     },
     ScrollView: {
         width: '100%',
         height: '40%',
-        backgroundColor: 'pink',
+        backgroundColor: '#faf3f3',
         marginHorizontal: 20
+    },
+    Button: {
+        backgroundColor: '#da7f8f',
+        borderColor: '#da7f8f',
+        width: '80%',
+        // height: '10%',
+        // borderRadius: 25,
+        marginTop: '1%',
     }
 });
 

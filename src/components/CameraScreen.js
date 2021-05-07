@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
     View, StyleSheet, Platform, Image
 } from 'react-native';
-import { Button, Text, Icon } from '@ui-kitten/components';
+import { Button, Icon } from '@ui-kitten/components';
 import * as ImagePicker from 'expo-image-picker';
 
 const CameraScreen = (props) => {
@@ -62,14 +62,14 @@ const CameraScreen = (props) => {
 
     const renderPreview = () => {
         if (image === '')
-            return <Icon name='image' fill='#000000' style={{ width: 35, height: 35 }}/>
+            return <Icon name='image' fill='#a7bbc7' style={{ width: 35, height: 35 }} />
         else
             return <Image source={{ uri: image }} style={styles.ImagePreview} />
     }
 
     const renderUseImageButton = () => {
         if (image !== '')
-            return <Button onPress={() => props.history.push('/result', { image: image, base64: base64 })}>
+            return <Button onPress={() => props.history.push('/result', { image: image, base64: base64 })} style={styles.Button}>
                 Use this Image
             </Button>
         return null;
@@ -81,13 +81,13 @@ const CameraScreen = (props) => {
                 {renderPreview()}
             </View>
             {renderUseImageButton()}
-            <Button onPress={selectImage}>
+            <Button onPress={selectImage} style={styles.Button}>
                 Choose Photo from Library
             </Button>
-            <Button onPress={takeImage}>
+            <Button onPress={takeImage} style={styles.Button}>
                 Take Photo using Camera
             </Button>
-            <Button onPress={() => props.history.push('/')}>
+            <Button onPress={() => props.history.push('/')} style={styles.Button}>
                 Back to Home Screen
             </Button>
         </View>
@@ -107,9 +107,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 300,
         height: 300,
-        borderColor: 'black',
+        borderColor: '#a7bbc7',
         borderWidth: 2,
-        borderRadius: 50
+        borderRadius: 50,
+        margin: '5%'
+    },
+    Button: {
+        backgroundColor: '#da7f8f',
+        borderColor: '#da7f8f',
+        width: '80%',
+        height: '10%',
+        borderRadius: 25,
+        marginTop: '5%',
     }
 });
 
