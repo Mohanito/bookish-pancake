@@ -5,14 +5,14 @@ import { Button, Text } from '@ui-kitten/components';
 const HomeScreen = (props) => {
     return (
         <View style={styles.HomeScreen}>
-            <View style={styles.CardStyle} status='danger'>
+            <View style={styles.CardStyle}>
                 <Image source={require('../../assets/doggo.jpg')} style={styles.DogImage} />
-                <Text category="p1">
+                <Text style={styles.MainText}>
                     {`Hi! I am Guide Doge.\nI will read any small texts for you!`}
                 </Text>
             </View>
             <Button onPress={() => props.history.push('/camera')} style={styles.UseButton}>
-                Get Started
+                <Text style={styles.ButtonText}>Get Started</Text>
             </Button>
         </View>
     );
@@ -46,6 +46,15 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         margin: '5%'
     },
+    MainText: {
+        fontFamily: 'Ubuntu_300Light',
+        fontSize: 24
+    },
+    ButtonText: {
+        fontFamily: 'Ubuntu_400Regular',
+        fontSize: 30,
+        color: 'white'
+    }
 });
 
 export default HomeScreen;

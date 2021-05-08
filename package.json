@@ -9,10 +9,13 @@
   },
   "dependencies": {
     "@eva-design/eva": "^2.1.0",
+    "@expo-google-fonts/ubuntu": "^0.1.0",
     "@ui-kitten/components": "^5.1.0",
     "@ui-kitten/eva-icons": "^5.1.0",
     "axios": "^0.21.1",
     "expo": "~41.0.1",
+    "expo-app-loading": "^1.0.3",
+    "expo-font": "~9.1.0",
     "expo-image-picker": "~10.1.4",
     "expo-speech": "~9.1.0",
     "expo-status-bar": "~1.0.4",

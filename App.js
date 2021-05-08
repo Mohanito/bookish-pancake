@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 // UI Kitten
 import * as eva from '@eva-design/eva';
@@ -14,25 +14,56 @@ import CameraScreen from './src/components/CameraScreen';
 import ResultScreen from './src/components/ResultScreen';
 import Header from './src/components/Header';
 
+import AppLoading from 'expo-app-loading';
+import {
+  useFonts,
+  Ubuntu_300Light,
+  Ubuntu_300Light_Italic,
+  Ubuntu_400Regular,
+  Ubuntu_400Regular_Italic,
+  Ubuntu_500Medium,
+  Ubuntu_500Medium_Italic,
+  Ubuntu_700Bold,
+  Ubuntu_700Bold_Italic,
+} from '@expo-google-fonts/ubuntu';
+
 const App = () => {
-  return (
-    <>
-      <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={eva.light}>
-        <NativeRouter>
-          <SafeAreaView>
-            <Header />
-            <Switch>
-              <Route path="/" exact component={HomeScreen} />
-              <Route path="/camera" exact component={CameraScreen} />
-              <Route path="/result" exact component={ResultScreen} />
-            </Switch>
-            <StatusBar style="auto" />
-          </SafeAreaView>
-        </NativeRouter>
-      </ApplicationProvider>
-    </>
-  );
+
+  let [fontsLoaded] = useFonts({
+    Ubuntu_300Light,
+    Ubuntu_300Light_Italic,
+    Ubuntu_400Regular,
+    Ubuntu_400Regular_Italic,
+    Ubuntu_500Medium,
+    Ubuntu_500Medium_Italic,
+    Ubuntu_700Bold,
+    Ubuntu_700Bold_Italic,
+  });
+  
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+  else {
+    return (
+      <>
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider {...eva} theme={eva.light}>
+          <NativeRouter>
+            <SafeAreaView>
+              <Header />
+              <Switch>
+                <Route path="/" exact component={HomeScreen} />
+                <Route path="/camera" exact component={CameraScreen} />
+                <Route path="/result" exact component={ResultScreen} />
+              </Switch>
+              <StatusBar style="auto" />
+            </SafeAreaView>
+
+          </NativeRouter>
+        </ApplicationProvider>
+      </>
+    );
+  }
 }
 
 export default App;

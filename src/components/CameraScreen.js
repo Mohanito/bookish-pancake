@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
     View, StyleSheet, Platform, Image
 } from 'react-native';
-import { Button, Icon } from '@ui-kitten/components';
+import { Button, Icon, Text } from '@ui-kitten/components';
 import * as ImagePicker from 'expo-image-picker';
 
 const CameraScreen = (props) => {
@@ -70,7 +70,7 @@ const CameraScreen = (props) => {
     const renderUseImageButton = () => {
         if (image !== '')
             return <Button onPress={() => props.history.push('/result', { image: image, base64: base64 })} style={styles.Button}>
-                Use this Image
+                <Text style={styles.ButtonText}>Use Image</Text>
             </Button>
         return null;
     }
@@ -80,16 +80,17 @@ const CameraScreen = (props) => {
             <View style={styles.ImagePreview}>
                 {renderPreview()}
             </View>
+
             {renderUseImageButton()}
-            <Button onPress={selectImage} style={styles.Button}>
-                Choose Photo from Library
-            </Button>
-            <Button onPress={takeImage} style={styles.Button}>
-                Take Photo using Camera
-            </Button>
-            <Button onPress={() => props.history.push('/')} style={styles.Button}>
-                Back to Home Screen
-            </Button>
+            
+            <View style={styles.ImageInputView}>
+                <Button onPress={selectImage} style={styles.Button}>
+                    <Text style={styles.ButtonText}>Photos Library</Text>
+                </Button>
+                <Button onPress={takeImage} style={styles.Button}>
+                    <Text style={styles.ButtonText}>Camera</Text> 
+                </Button>
+            </View>
         </View>
     );
 }
@@ -112,13 +113,24 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         margin: '5%'
     },
-    Button: {
-        backgroundColor: '#da7f8f',
-        borderColor: '#da7f8f',
+    ImageInputView: {
         width: '80%',
-        height: '10%',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row'
+    },
+    Button: {
+        backgroundColor: '#325288',
+        borderColor: '#325288',
+        width: 150,
+        height: 150,
         borderRadius: 25,
         marginTop: '5%',
+    },
+    ButtonText: {
+        fontFamily: 'Ubuntu_400Regular',
+        fontSize: 30,
+        color: 'white'
     }
 });
 
