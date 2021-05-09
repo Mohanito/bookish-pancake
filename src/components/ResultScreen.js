@@ -128,12 +128,12 @@ const ResultScreen = (props) => {
     }
 
     return (
-        <SafeAreaView style={styles.ResultScreen}>
+        <View style={styles.ResultScreen}>
             <View style={styles.ImagePreview}>
                 {renderPreview()}
             </View>
             {renderResponse()}
-        </SafeAreaView>
+        </View>
     );
 }
 

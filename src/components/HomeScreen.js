@@ -16,6 +16,9 @@ const HomeScreen = (props) => {
                 <Button onPress={() => props.history.push('/camera')} style={styles.UseButton}>
                     <Text style={styles.ButtonText}>Get Started</Text>
                 </Button>
+                <Button onPress={() => props.history.push('/magnify')} style={styles.UseButton}>
+                    <Text style={styles.ButtonText}>Magnifying Glass</Text>
+                </Button>
             </View>
         </View>
     );

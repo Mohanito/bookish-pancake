@@ -13,6 +13,7 @@ import HomeScreen from './src/components/HomeScreen';
 import CameraScreen from './src/components/CameraScreen';
 import ResultScreen from './src/components/ResultScreen';
 import Header from './src/components/Header';
+import MagnifyScreen from './src/components/MagnifyScreen';
 
 import AppLoading from 'expo-app-loading';
 import {
@@ -49,17 +50,18 @@ const App = () => {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NativeRouter>
-            {/* <SafeAreaView> */}
             <View>
               <Header />
-              <Switch>
-                <Route path="/" exact component={HomeScreen} />
-                <Route path="/camera" exact component={CameraScreen} />
-                <Route path="/result" exact component={ResultScreen} />
-              </Switch>
-              <StatusBar style="auto" />
+              <SafeAreaView>
+                <Switch>
+                  <Route path="/" exact component={HomeScreen} />
+                  <Route path="/camera" exact component={CameraScreen} />
+                  <Route path="/result" exact component={ResultScreen} />
+                  <Route path="/magnify" exact component={MagnifyScreen} />
+                </Switch>
+                <StatusBar style="auto" />
+              </SafeAreaView>
             </View>
-            {/* </SafeAreaView> */}
           </NativeRouter>
         </ApplicationProvider>
       </>

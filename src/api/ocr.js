@@ -25,7 +25,7 @@ const ocrRequest = async (base64) => {
                 'language': 'eng',
                 'filetype': 'JPG',
                 'content-type': 'multipart/form-data',
-                'detectOrientation': true
+                'detectOrientation': true   // doesn't seem to work?
             }
         })
         return response.data;
