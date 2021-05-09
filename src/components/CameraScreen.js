@@ -62,17 +62,22 @@ const CameraScreen = (props) => {
 
     const renderPreview = () => {
         if (image === '')
-            return <Icon name='image' fill='#a7bbc7' style={{ width: 35, height: 35 }} />
+            return <Icon name='image' fill='#EEEEEE' style={{ width: 35, height: 35 }} />
         else
             return <Image source={{ uri: image }} style={styles.ImagePreview} />
     }
 
     const renderUseImageButton = () => {
         if (image !== '')
-            return <Button onPress={() => props.history.push('/result', { image: image, base64: base64 })} style={styles.Button}>
+            return <Button onPress={() => props.history.push('/result', { image: image, base64: base64 })} style={styles.UseButton}>
                 <Text style={styles.ButtonText}>Use Image</Text>
             </Button>
-        return null;
+        else {
+            return (<>
+                <Text style={styles.MainText}>① Select an image</Text>
+                <Text style={styles.MainText}>② Crop the text area</Text>
+            </>);
+        }
     }
 
     return (
@@ -82,24 +87,20 @@ const CameraScreen = (props) => {
             </View>
 
             {renderUseImageButton()}
-            
-            <View style={styles.ImageInputView}>
-                <Button onPress={selectImage} style={styles.Button}>
-                    <Text style={styles.ButtonText}>Photos Library</Text>
-                </Button>
-                <Button onPress={takeImage} style={styles.Button}>
-                    <Text style={styles.ButtonText}>Camera</Text> 
-                </Button>
-            </View>
+
+            <Button onPress={selectImage} style={styles.Button}>
+                <Text style={styles.ButtonText}>Photos Library</Text>
+            </Button>
+            <Button onPress={takeImage} style={styles.Button}>
+                <Text style={styles.ButtonText}>Camera</Text>
+            </Button>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     CameraScreen: {
-        // justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: 'honeydew',
         width: '100%',
         height: '100%'
     },
@@ -108,29 +109,35 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 300,
         height: 300,
-        borderColor: '#a7bbc7',
+        borderColor: '#EEEEEE',
         borderWidth: 2,
-        borderRadius: 50,
+        borderRadius: 25,
         margin: '5%'
     },
-    ImageInputView: {
-        width: '80%',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexDirection: 'row'
-    },
     Button: {
-        backgroundColor: '#325288',
-        borderColor: '#325288',
-        width: 150,
-        height: 150,
-        borderRadius: 25,
+        backgroundColor: '#1fab89',
+        borderColor: '#1fab89',
+        width: '80%',
+        height: '8%',
+        borderRadius: 50,
+        marginTop: '5%',
+    },
+    UseButton: {
+        backgroundColor: '#07689f',
+        borderColor: '#07689f',
+        width: '80%',
+        height: '8%',
+        borderRadius: 50,
         marginTop: '5%',
     },
     ButtonText: {
         fontFamily: 'Ubuntu_400Regular',
-        fontSize: 30,
+        fontSize: 24,
         color: 'white'
+    },
+    MainText: {
+        fontFamily: 'Ubuntu_400Regular',
+        fontSize: 24
     }
 });
 

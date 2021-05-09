@@ -39,7 +39,7 @@ const App = () => {
     Ubuntu_700Bold,
     Ubuntu_700Bold_Italic,
   });
-  
+
   if (!fontsLoaded) {
     return <AppLoading />;
   }
@@ -49,7 +49,8 @@ const App = () => {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NativeRouter>
-            <SafeAreaView>
+            {/* <SafeAreaView> */}
+            <View>
               <Header />
               <Switch>
                 <Route path="/" exact component={HomeScreen} />
@@ -57,8 +58,8 @@ const App = () => {
                 <Route path="/result" exact component={ResultScreen} />
               </Switch>
               <StatusBar style="auto" />
-            </SafeAreaView>
-
+            </View>
+            {/* </SafeAreaView> */}
           </NativeRouter>
         </ApplicationProvider>
       </>

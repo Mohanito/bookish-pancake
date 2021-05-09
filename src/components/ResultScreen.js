@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    View, StyleSheet, Image, ScrollView
+    View, StyleSheet, Image, ScrollView, SafeAreaView
 } from 'react-native';
 import { Button, Text, Icon, Spinner } from '@ui-kitten/components';
 import * as Speech from 'expo-speech';
@@ -11,7 +11,7 @@ const ResultScreen = (props) => {
     const [image, setImage] = useState(props.location.state.image);
     const [response, setResponse] = useState('');
     const [speak, setSpeak] = useState(false);
-    const [responseFontSize, setResponseFontSize] = useState(36);
+    const [responseFontSize, setResponseFontSize] = useState(30);
     // const [base64, setBase64] = useState(props.location.state.base64);
 
     useEffect(() => {
@@ -23,14 +23,14 @@ const ResultScreen = (props) => {
                 setResponse(JSON.stringify(apiResponse.ParsedResults[0].ParsedText));
             }
             else {
-                setResponse(apiResponse.ErrorDetails);
+                setResponse(apiResponse.ErrorMessage[0]);
             }
         })();
     }, []);
 
     const renderPreview = () => {
         if (image === '')
-            return <Icon name='image' fill='#a7bbc7' style={{ width: 35, height: 35 }} />
+            return <Icon name='image' fill='#EEEEEE' style={{ width: 35, height: 35 }} />
         else
             return <Image source={{ uri: image }} style={styles.ImagePreview} />
     }
@@ -42,7 +42,7 @@ const ResultScreen = (props) => {
                     <Spinner size='giant' />
                     <Text style={{
                         fontFamily: 'Ubuntu_400Regular',
-                        fontSize: 36,
+                        fontSize: 30,
                         margin: 20
                     }}>Waiting for Results...</Text>
                 </View>
@@ -53,6 +53,8 @@ const ResultScreen = (props) => {
                     <Text style={{
                         fontFamily: 'Ubuntu_400Regular',
                         fontSize: responseFontSize,
+                        margin: '3%',
+                        textAlign: 'center'
                     }}>
                         {response.replace(/ \\ r \\ n/g, '\n').replace(/\\r\\n/g, '\n')}
                     </Text>
@@ -83,7 +85,7 @@ const ResultScreen = (props) => {
         if (speak) {
             return <Button onPress={stopSpeak} style={styles.Button}>
                 <Text style={styles.ButtonText}>
-                    <Icon name='stop-circle-outline' fill='white' style={{ width: 30, height: 30 }} />
+                    <Icon name='stop-circle-outline' fill='white' style={{ width: 24, height: 24 }} />
                     Stop
                 </Text>
             </Button>
@@ -91,7 +93,7 @@ const ResultScreen = (props) => {
         else {
             return <Button onPress={speakResponse} style={styles.Button}>
                 <Text style={styles.ButtonText}>
-                    <Icon name='headphones-outline' fill='white' style={{ width: 30, height: 30 }} />
+                    <Icon name='headphones-outline' fill='white' style={{ width: 24, height: 24 }} />
                     Listen
                 </Text>
             </Button>
@@ -112,13 +114,13 @@ const ResultScreen = (props) => {
         return (<>
             <Button onPress={increaseFontSize} style={styles.Button}>
                 <Text style={styles.ButtonText}>
-                    <Icon name='text-outline' fill='white' style={{ width: 30, height: 30 }} />
+                    <Icon name='text-outline' fill='white' style={{ width: 24, height: 24 }} />
                     larger
                 </Text>
             </Button>
             <Button onPress={decreaseFontSize} style={styles.Button}>
                 <Text style={styles.ButtonText}>
-                    <Icon name='text-outline' fill='white' style={{ width: 30, height: 30 }} />
+                    <Icon name='text-outline' fill='white' style={{ width: 24, height: 24 }} />
                     smaller
                 </Text>
             </Button>
@@ -126,12 +128,12 @@ const ResultScreen = (props) => {
     }
 
     return (
-        <View style={styles.ResultScreen}>
+        <SafeAreaView style={styles.ResultScreen}>
             <View style={styles.ImagePreview}>
                 {renderPreview()}
             </View>
             {renderResponse()}
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -146,27 +148,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 150,
         height: 150,
-        borderColor: '#a7bbc7',
+        borderColor: '#EEEEEE',
         borderWidth: 2,
         borderRadius: 25,
-        margin: 5
+        margin: '2%'
     },
     ScrollView: {
         width: '90%',
         height: '100%',
-        backgroundColor: '#faf3f3',
-        marginHorizontal: 20
+        backgroundColor: '#EEEEEE',
+        borderRadius: 5
     },
     Button: {
-        backgroundColor: '#da7f8f',
-        borderColor: '#da7f8f',
+        backgroundColor: '#1fab89',
+        borderColor: '#1fab89',
         width: 100,
         height: 100,
-        margin: 5,
+        margin: '5%',
     },
     ButtonText: {
         fontFamily: 'Ubuntu_400Regular',
-        fontSize: 18,
+        fontSize: 15,
         color: 'white'
     }
 });

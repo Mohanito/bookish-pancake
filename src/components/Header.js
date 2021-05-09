@@ -4,7 +4,8 @@ import { Text, Icon } from '@ui-kitten/components';
 import { Link } from 'react-router-native';
 
 const Header = (props) => {
-    return (
+    return (<>
+        <View style={{height: '4%', backgroundColor: '#1fab89'}}></View>
         <View style={styles.Header}>
             <Link to="/" component={TouchableOpacity} activeOpacity={0.5}>
                 <Icon name='home-outline' fill='white' style={styles.Icons} />
@@ -12,6 +13,7 @@ const Header = (props) => {
             <Text style={styles.HeaderTitle}>GUIDE DOGE</Text>
             <Icon name='settings-2-outline' fill='white' style={styles.Icons} />
         </View>
+    </>
     );
 }
 
@@ -21,7 +23,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: '#da7f8f',
+        backgroundColor: '#1fab89',
         flexDirection: 'row'
     },
     HeaderTitle: {
@@ -30,8 +32,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Ubuntu_400Regular',
     },
     Icons: {
-        width: 35,
-        height: 35,
+        width: 30,
+        height: 30,
         margin: 20
     }
 });

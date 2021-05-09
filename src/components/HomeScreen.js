@@ -8,12 +8,15 @@ const HomeScreen = (props) => {
             <View style={styles.CardStyle}>
                 <Image source={require('../../assets/doggo.jpg')} style={styles.DogImage} />
                 <Text style={styles.MainText}>
-                    {`Hi! I am Guide Doge.\nI will read any small texts for you!`}
+                    Hi! I am your Guide Doge.
                 </Text>
+                <Text style={styles.MainText}>
+                    I will read any small texts for you!
+                </Text>
+                <Button onPress={() => props.history.push('/camera')} style={styles.UseButton}>
+                    <Text style={styles.ButtonText}>Get Started</Text>
+                </Button>
             </View>
-            <Button onPress={() => props.history.push('/camera')} style={styles.UseButton}>
-                <Text style={styles.ButtonText}>Get Started</Text>
-            </Button>
         </View>
     );
 }
@@ -25,34 +28,34 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     DogImage: {
-        width: 200,
-        height: 200,
-        borderRadius: 100,
+        width: 250,
+        height: 250,
+        borderRadius: 125,
         margin: '5%'
     },
     UseButton: {
-        backgroundColor: '#da7f8f',
-        borderColor: '#da7f8f',
-        width: '80%',
+        backgroundColor: '#1fab89',
+        borderColor: '#1fab89',
+        width: '90%',
         height: '10%',
-        borderRadius: 25,
-        marginTop: '5%'
+        borderRadius: 50,
+        marginTop: '10%'
     },
     CardStyle: {
         alignItems: 'center',
-        width: '95%',
-        height: '50%',
-        backgroundColor: '#faf3f3',
-        borderRadius: 10,
-        margin: '5%'
+        width: '90%',
+        height: '75%',
+        backgroundColor: '#F5F5F5',
+        borderRadius: 25,
+        margin: '3%'
     },
     MainText: {
-        fontFamily: 'Ubuntu_300Light',
+        fontFamily: 'Ubuntu_400Regular',
         fontSize: 24
     },
     ButtonText: {
         fontFamily: 'Ubuntu_400Regular',
-        fontSize: 30,
+        fontSize: 24,
         color: 'white'
     }
 });
