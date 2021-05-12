@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Link } from 'react-router-native';
 import { Text, Icon } from '@ui-kitten/components';
 import { Camera } from 'expo-camera';
 import Slider from '@react-native-community/slider';
-import { Link } from 'react-router-native';
+import * as Speech from 'expo-speech';
 
 const MagnifyScreen = (props) => {
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [zoom, setZoom] = useState(0);
     const [flash, setFlash] = useState('off');
+    const [speak, setSpeak] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -31,6 +33,27 @@ const MagnifyScreen = (props) => {
         </>);
     }
 
+    const flipCamera = () => {
+        setType(
+            type === Camera.Constants.Type.back
+                ? Camera.Constants.Type.front
+                : Camera.Constants.Type.back
+        );
+        if (!speak) {
+            Speech.speak('Flip Camera.', { onDone: () => setSpeak(false) });
+            setSpeak(true);
+        }
+    }
+
+    const switchFlash = () => {
+        setFlash(flash === 'off' ? 'torch' : 'off');
+        if (type === Camera.Constants.Type.back && !speak) {
+            Speech.speak('Flashlight', { onDone: () => setSpeak(false) });
+            setSpeak(true);
+        }
+    }
+
+
     if (hasPermission === null) {
         return <View />;
     }
@@ -44,19 +67,11 @@ const MagnifyScreen = (props) => {
                 {renderHeader()}
                 <View style={styles.ButtonContainer}>
                     <View style={styles.ButtonRow}>
-                        <TouchableOpacity style={styles.Button}
-                            onPress={() => {
-                                setType(
-                                    type === Camera.Constants.Type.back
-                                        ? Camera.Constants.Type.front
-                                        : Camera.Constants.Type.back
-                                );
-                            }}>
+                        <TouchableOpacity onPress={flipCamera} style={styles.Button} >
                             <Icon name='flip-2-outline' fill='white' style={styles.Icons} />
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.Button}
-                            onPress={() => { setFlash(flash === 'off' ? 'torch' : 'off'); }}>
+                        <TouchableOpacity onPress={switchFlash} style={styles.Button} >
                             <Icon name='bulb-outline' fill='white' style={styles.Icons} />
                         </TouchableOpacity>
                     </View>
@@ -64,15 +79,10 @@ const MagnifyScreen = (props) => {
             </Camera>
 
             <View style={styles.SliderContainer}>
-                <Slider
-                    style={styles.Slider}
-                    minimumValue={0}
-                    maximumValue={1}
-                    minimumTrackTintColor="#1fab89"
-                    maximumTrackTintColor="#FFFFFF"
-                    onValueChange={(value) => {
-                        setZoom(value);
-                    }}
+                <Slider style={styles.Slider}
+                    minimumValue={0} maximumValue={1}
+                    minimumTrackTintColor="#1fab89" maximumTrackTintColor="#FFFFFF"
+                    onValueChange={(value) => { setZoom(value); }}
                 />
                 <Text style={styles.Text}> Zoom </Text>
             </View>
@@ -104,8 +114,6 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         alignItems: 'center',
         justifyContent: "space-between",
-        // borderColor: 'white',
-        // borderWidth: 2,
     },
     Button: {
         borderColor: 'white',

@@ -1,24 +1,28 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Button, Text } from '@ui-kitten/components';
 
 const HomeScreen = (props) => {
     return (
         <View style={styles.HomeScreen}>
             <View style={styles.CardStyle}>
+
                 <Image source={require('../../assets/doggo.jpg')} style={styles.DogImage} />
+                
                 <Text style={styles.MainText}>
                     Hi! I am your Guide Doge.
                 </Text>
                 <Text style={styles.MainText}>
-                    I will read any small texts for you!
+                    Here's what I can do for you:
                 </Text>
-                <Button onPress={() => props.history.push('/camera')} style={styles.UseButton}>
-                    <Text style={styles.ButtonText}>Get Started</Text>
-                </Button>
-                <Button onPress={() => props.history.push('/magnify')} style={styles.UseButton}>
+
+                <TouchableOpacity onPress={() => props.history.push('/camera')} style={styles.Button}>
+                    <Text style={styles.ButtonText}>OCR Text Recognition</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => props.history.push('/magnify')} style={styles.Button}>
                     <Text style={styles.ButtonText}>Magnifying Glass</Text>
-                </Button>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -36,11 +40,13 @@ const styles = StyleSheet.create({
         borderRadius: 125,
         margin: '5%'
     },
-    UseButton: {
+    Button: {
         backgroundColor: '#1fab89',
         borderColor: '#1fab89',
         width: '90%',
         height: '10%',
+        alignItems: 'center',
+        justifyContent: 'center',
         borderRadius: 50,
         marginTop: '10%'
     },
