@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Text } from '@ui-kitten/components';
+import { Text, Icon } from '@ui-kitten/components';
 import { Camera } from 'expo-camera';
 import Slider from '@react-native-community/slider';
 
@@ -8,6 +8,7 @@ const MagnifyScreen = (props) => {
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [zoom, setZoom] = useState(0);
+    const [flash, setFlash] = useState('off');
 
     useEffect(() => {
         (async () => {
@@ -24,7 +25,7 @@ const MagnifyScreen = (props) => {
     }
     return (
         <View style={styles.Container}>
-            <Camera style={styles.Camera} type={type} zoom={zoom}>
+            <Camera style={styles.Camera} type={type} zoom={zoom} flashMode={flash}>
                 <View style={styles.ButtonContainer}>
                     <View style={styles.ButtonRow}>
                         <TouchableOpacity
@@ -42,9 +43,11 @@ const MagnifyScreen = (props) => {
                         <TouchableOpacity
                             style={styles.Button}
                             onPress={() => {
-                                alert("second button pressed");
+                                setFlash(
+                                    flash === 'off' ? 'torch' : 'off'
+                                );
                             }}>
-                            <Text style={styles.Text}> Glip </Text>
+                            <Icon name='bulb-outline' fill='white' style={styles.Icons} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -105,6 +108,11 @@ const styles = StyleSheet.create({
     Slider: {
         width: '80%',
         height: 60,
+    },
+    Icons: {
+        width: 30,
+        height: 30,
+        margin: 5
     }
 });
 
