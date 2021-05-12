@@ -11,7 +11,7 @@ const Header = (props) => {
                 <Icon name='home-outline' fill='white' style={styles.Icons} />
             </Link>
             <Text style={styles.HeaderTitle}>GUIDE DOGE</Text>
-            <Icon name='settings-2-outline' fill='white' style={styles.Icons} />
+            <Icon name='settings-2-outline' fill='transparent' style={styles.Icons} />
         </View>
     </>
     );

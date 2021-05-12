@@ -51,13 +51,16 @@ const App = () => {
         <ApplicationProvider {...eva} theme={eva.light}>
           <NativeRouter>
             <View>
-              <Header />
+              <Switch>
+                <Route path="/magnify" exact component={MagnifyScreen} />
+                <Route path="*" exact component={Header} />
+              </Switch>
               <SafeAreaView>
                 <Switch>
                   <Route path="/" exact component={HomeScreen} />
                   <Route path="/camera" exact component={CameraScreen} />
                   <Route path="/result" exact component={ResultScreen} />
-                  <Route path="/magnify" exact component={MagnifyScreen} />
+                  {/* <Route path="/magnify" exact component={MagnifyScreen} /> */}
                 </Switch>
                 <StatusBar style="auto" />
               </SafeAreaView>
