@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {
-    View, StyleSheet, Platform, Image
+    View, StyleSheet, Platform, Image, TouchableOpacity
 } from 'react-native';
-import { Button, Icon, Text } from '@ui-kitten/components';
+import { Icon, Text } from '@ui-kitten/components';
 import * as ImagePicker from 'expo-image-picker';
 
 const CameraScreen = (props) => {
@@ -69,13 +69,13 @@ const CameraScreen = (props) => {
 
     const renderUseImageButton = () => {
         if (image !== '')
-            return <Button onPress={() => props.history.push('/result', { image: image, base64: base64 })} style={styles.UseButton}>
-                <Text style={styles.ButtonText}>Use Image</Text>
-            </Button>
+            return <TouchableOpacity onPress={() => props.history.push('/result', { image: image, base64: base64 })} style={styles.UseButton}>
+                <Text style={styles.ButtonText}>Scan Image</Text>
+            </TouchableOpacity>
         else {
             return (<>
                 <Text style={styles.MainText}>① Select an image</Text>
-                <Text style={styles.MainText}>② Crop the text area</Text>
+                <Text style={styles.MainText}>② (Optional) Crop the text area</Text>
             </>);
         }
     }
@@ -88,12 +88,14 @@ const CameraScreen = (props) => {
 
             {renderUseImageButton()}
 
-            <Button onPress={selectImage} style={styles.Button}>
+            <TouchableOpacity onPress={selectImage} style={styles.Button}>
+                <Icon name='image-outline' fill='white' style={{ width: 30, height: 30 }} />
                 <Text style={styles.ButtonText}>Photos Library</Text>
-            </Button>
-            <Button onPress={takeImage} style={styles.Button}>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={takeImage} style={styles.Button}>
+                <Icon name='camera-outline' fill='white' style={{ width: 30, height: 30 }} />
                 <Text style={styles.ButtonText}>Camera</Text>
-            </Button>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -109,16 +111,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 300,
         height: 300,
-        borderColor: '#EEEEEE',
-        borderWidth: 2,
-        borderRadius: 25,
-        margin: '5%'
+        borderRadius: 15,
+        margin: '5%',
+
+        backgroundColor: 'white',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
     },
     Button: {
         backgroundColor: '#1fab89',
         borderColor: '#1fab89',
         width: '80%',
         height: '8%',
+        alignItems: 'center',
+        justifyContent: 'center',
         borderRadius: 50,
         marginTop: '5%',
     },
@@ -127,8 +138,10 @@ const styles = StyleSheet.create({
         borderColor: '#07689f',
         width: '80%',
         height: '8%',
+        alignItems: 'center',
+        justifyContent: 'center',
         borderRadius: 50,
-        marginTop: '5%',
+        margin: '5%',
     },
     ButtonText: {
         fontFamily: 'Ubuntu_400Regular',

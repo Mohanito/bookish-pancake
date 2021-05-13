@@ -39,18 +39,18 @@ const MagnifyScreen = (props) => {
                 ? Camera.Constants.Type.front
                 : Camera.Constants.Type.back
         );
-        if (!speak) {
-            Speech.speak('Flip Camera.', { onDone: () => setSpeak(false) });
-            setSpeak(true);
-        }
+        // if (!speak) {
+        //     Speech.speak('Flip Camera.', { onDone: () => setSpeak(false) });
+        //     setSpeak(true);
+        // }
     }
 
     const switchFlash = () => {
         setFlash(flash === 'off' ? 'torch' : 'off');
-        if (type === Camera.Constants.Type.back && !speak) {
-            Speech.speak('Flashlight', { onDone: () => setSpeak(false) });
-            setSpeak(true);
-        }
+        // if (type === Camera.Constants.Type.back && !speak) {
+        //     Speech.speak('Flashlight', { onDone: () => setSpeak(false) });
+        //     setSpeak(true);
+        // }
     }
 
 

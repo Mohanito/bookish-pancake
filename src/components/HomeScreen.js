@@ -1,38 +1,70 @@
 import React from 'react';
-import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { Button, Text } from '@ui-kitten/components';
+import { View, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, Icon } from '@ui-kitten/components';
 
 const HomeScreen = (props) => {
     return (
-        <View style={styles.HomeScreen}>
-            <View style={styles.CardStyle}>
+        <View style={styles.ScrollViewContainer}>
+            <ScrollView style={styles.ScrollView}>
+                <View style={styles.Container}>
 
-                <Image source={require('../../assets/doggo.jpg')} style={styles.DogImage} />
-                
-                <Text style={styles.MainText}>
-                    Hi! I am your Guide Doge.
-                </Text>
-                <Text style={styles.MainText}>
-                    Here's what I can do for you:
-                </Text>
+                    <Image source={require('../../assets/doggo.jpg')} style={styles.DogImage} />
 
-                <TouchableOpacity onPress={() => props.history.push('/camera')} style={styles.Button}>
-                    <Text style={styles.ButtonText}>OCR Text Recognition</Text>
-                </TouchableOpacity>
+                    <Text style={styles.MainText}>
+                        Hi! I am your Guide Doge.
+                    </Text>
+                    <Text style={styles.MainText}>
+                        Here's what I can do for you:
+                    </Text>
 
-                <TouchableOpacity onPress={() => props.history.push('/magnify')} style={styles.Button}>
-                    <Text style={styles.ButtonText}>Magnifying Glass</Text>
-                </TouchableOpacity>
-            </View>
+                    <View style={styles.CardsContainer}>
+                        <TouchableOpacity onPress={() => props.history.push('/camera')} style={styles.Card}>
+                            <Text style={styles.CardTitle}>
+                                <Icon name='camera-outline' fill='#1fab89' style={{ width: 30, height: 30 }} />
+                                OCR Text Recognition
+                            </Text>
+                            <Text style={styles.CardText}>
+                                {`- Scans texts from images\n- Converts text results to speech`}
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={() => props.history.push('/magnify')} style={styles.Card}>
+                            <Text style={styles.CardTitle}>
+                                <Icon name='maximize-outline' fill='#1fab89' style={{ width: 30, height: 30 }} />
+                                Magnifying Glass
+                            </Text>
+                            <Text style={styles.CardText}>
+                                {`- Flashlight for dark lightings\n- Autofocus\n- Read prescription bottles, menu items, labels, etc. without glasses`}
+                            </Text>
+                        </TouchableOpacity>
+                        <View style={{ width: '90%', marginTop: 20 }}>
+                            <Text style={styles.CardText}>
+                                Guide Doge is a free application designed to assist low vision people,
+                                specifically the elderly people with presbyopia.
+                            </Text>
+                        </View>
+                    </View>
+
+                </View>
+            </ScrollView>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    HomeScreen: {
+    ScrollViewContainer: {
         alignItems: 'center',
         width: '100%',
+        height: '95%',
+    },
+    ScrollView: {
+        width: '100%',
         height: '100%'
+    },
+    Container: {
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
     },
     DogImage: {
         width: 250,
@@ -40,32 +72,43 @@ const styles = StyleSheet.create({
         borderRadius: 125,
         margin: '5%'
     },
-    Button: {
-        backgroundColor: '#1fab89',
-        borderColor: '#1fab89',
-        width: '90%',
-        height: '10%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 50,
-        marginTop: '10%'
-    },
-    CardStyle: {
-        alignItems: 'center',
-        width: '90%',
-        height: '75%',
-        backgroundColor: '#F5F5F5',
-        borderRadius: 25,
-        margin: '3%'
-    },
     MainText: {
         fontFamily: 'Ubuntu_400Regular',
         fontSize: 24
     },
-    ButtonText: {
+    // Cards
+    CardsContainer: {
+        alignItems: 'center',
+        width: '100%',
+        height: 550,
+    },
+    Card: {
+        backgroundColor: 'white',
+        width: '90%',
+        height: 175,
+        borderRadius: 10,
+        marginTop: '5%',
+
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
+        elevation: 3,
+    },
+    CardTitle: {
         fontFamily: 'Ubuntu_400Regular',
         fontSize: 24,
-        color: 'white'
+        marginHorizontal: 10,
+        marginVertical: 10
+    },
+    CardText: {
+        fontFamily: 'Ubuntu_400Regular',
+        fontSize: 20,
+        marginHorizontal: 20,
+        color: 'gray'
     }
 });
 

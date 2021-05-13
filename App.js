@@ -50,7 +50,7 @@ const App = () => {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <NativeRouter>
-            <View>
+            <View style={{height: '100%'}}>
               <Switch>
                 <Route path="/magnify" exact component={MagnifyScreen} />
                 <Route path="*" exact component={Header} />
